@@ -1,6 +1,6 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
-// Schema to create a course model
+// Schema to create a thought model
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -25,7 +25,12 @@ const thoughtSchema = new Schema(
   }
 );
 
-// Reaction will be subdocument of Thought
+//virtual for reaction count
+thoughtSchema.virtual('reactionCount').get(function() {
+  return this.reactions.length;
+});
+
+// Reaction is a subdocument of Thought
 const ReactionSchema = new Schema(
     {
         reactionId: {
