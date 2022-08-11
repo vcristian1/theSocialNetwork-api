@@ -1,3 +1,4 @@
+//Alter so routes are getting Thoughts data
 const router = require('express').Router();
 const {
   getCourses,
