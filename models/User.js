@@ -1,3 +1,4 @@
+
 const { Schema, model } = require('mongoose');
 
 //Regex function which validates email in text is set equal to validateEmail
@@ -27,14 +28,14 @@ const userSchema = new Schema(
         thoughts: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'Thought',
+                ref: 'thought',
             },
         ],
         friends: [
             {
                 // self reference
                 type: Schema.Types.ObjectId,
-                ref: 'User'
+                ref: 'user'
             }
         ],
         toJSON: {
@@ -49,6 +50,6 @@ userSchema.virtual('friendCount').get(function() {
     return `${this.friends.length}`;
 });
 
-const User = model('User', userSchema);
+const User = model('user', userSchema);
 
 module.exports = User;
