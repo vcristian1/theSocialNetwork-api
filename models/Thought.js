@@ -1,5 +1,35 @@
 const { Schema, model, Types } = require('mongoose');
 
+// Reaction is a subdocument of Thought
+const ReactionSchema = new Schema(
+  {
+      reactionId: {
+          type: Schema.Types.ObjectId,
+          default: () => new Types.ObjectId()
+      },
+      reactionBody: {
+          type: String,
+          required: true,
+          maxlength: 280
+      },
+      username: {
+          type: String,
+          required: true
+      },
+      createdAt: {
+          type: Date,
+          default: Date.now,
+          get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+      },
+  },
+  {
+      toJSON: {
+          virtuals: true,
+          getters: true
+      },   
+  }
+);
+
 // Schema to create a thought model
 const thoughtSchema = new Schema(
   {
@@ -29,36 +59,6 @@ const thoughtSchema = new Schema(
 thoughtSchema.virtual('reactionCount').get(function() {
   return this.reactions.length;
 });
-
-// Reaction is a subdocument of Thought
-const ReactionSchema = new Schema(
-    {
-        reactionId: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId()
-        },
-        reactionBody: {
-            type: String,
-            required: true,
-            maxlength: 280
-        },
-        username: {
-            type: String,
-            required: true
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now,
-            get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
-        },
-    },
-    {
-        toJSON: {
-            virtuals: true,
-            getters: true
-        },   
-    }
-);
 
 const Thought = model('Thought', thoughtSchema);
 
