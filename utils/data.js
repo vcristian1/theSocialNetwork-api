@@ -174,7 +174,7 @@ const thoughts = [
     " doesn't like to waste their time, or anyone else's time!",
     ' was catfished when they met their online date at the club!',
     ' has a pet cricket named Jimmy.',
-    ' wants to be a web developer!'
+    ' wants to be a web developer'
 ];
 
 // Get a random item given an array
