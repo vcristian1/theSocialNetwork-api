@@ -1,5 +1,6 @@
 //Alter so routes are getting Users data
 const router = require('express').Router();
+
 const {
   getAllUsers,
   getUserById,
