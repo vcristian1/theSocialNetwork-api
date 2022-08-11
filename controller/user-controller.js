@@ -10,7 +10,7 @@ module.exports = {
     // get one user by ID
     getUserById(req,res) {
         User.findOne({ _id: req.params.userId })
-        .populate('thoughts')
+        .populate('thought')
         .populate('friends')
         .select('-__v')
         .then(async (user) => 
