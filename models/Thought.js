@@ -1,31 +1,21 @@
 const { Schema, model } = require('mongoose');
 
 // Schema to create a course model
-const courseSchema = new Schema(
+const thoughtSchema = new Schema(
   {
-    courseName: {
+    thoughtText: {
       type: String,
       required: true,
     },
-    inPerson: {
-      type: Boolean,
-      default: true,
-    },
-    startDate: {
+    createdAt: {
       type: Date,
       default: Date.now(),
     },
-    endDate: {
-      type: Date,
-      // Sets a default value of 12 weeks from now
-      default: () => new Date(+new Date() + 84 * 24 * 60 * 60 * 1000),
+    username: {
+      type: String,
+      required: true,
     },
-    students: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Student',
-      },
-    ],
+    reactions: [ReactionSchema]
   },
   {
     toJSON: {
@@ -35,6 +25,36 @@ const courseSchema = new Schema(
   }
 );
 
-const Course = model('course', courseSchema);
+// Reaction will be subdocument of Thought
+const ReactionSchema = new Schema(
+    {
+        reactionId: {
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId()
+        },
+        reactionBody: {
+            type: String,
+            required: true,
+            maxlength: 280
+        },
+        username: {
+            type: String,
+            required: true
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+        },
+    },
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true
+        },   
+    }
+);
 
-module.exports = Course;
+const Thought = model('Thought', thoughtSchema);
+
+module.exports = Thought;
