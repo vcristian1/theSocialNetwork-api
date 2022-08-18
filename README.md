@@ -25,6 +25,29 @@ WHEN I test API POST and DELETE routes in Insomnia
 THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
 ```
 
+## Technologies Used
+
+- [Node.js](https://nodejs.org/en/)
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose](https://www.npmjs.com/package/mongoose)
+- [Express](https://expressjs.com/)
+- [Insomnia](https://insomnia.rest/)
+
+<br>
+
 ## Media Screenshots
 
+![Screenshot](/assets/insomniaScreenshot.png)
+![Screenshot](/assets/mongoCompassScreenshot.png)
+![Screenshot](/assets/mongoCompassScreenshot2.png)
+![Screenshot](/assets/mongoCompassScreenshot3.png)
+
 ## Walkthrough
+
+[Demo](https://drive.google.com/file/d/11hVQrRpCGAlGjvY5WLyzptfsl1QQQb4F/view?usp=sharing)
+
+<br>
+
+### Contact Me At
+
+cristian.v0223@gmail.com

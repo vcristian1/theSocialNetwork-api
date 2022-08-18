@@ -1,4 +1,3 @@
-
 const { Schema, model } = require('mongoose');
 
 //Regex function which validates email in text is set equal to validateEmail
