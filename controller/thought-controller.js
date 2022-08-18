@@ -29,13 +29,14 @@ module.exports = {
   },
   // Delete a thought
   deleteThought(req, res) {
-    Thought.findOneAndDelete({ _id: req.param.thoughtId })
-      .then((thought) =>
-        !Thought
-          ? res.status(404).json({ message: 'No thought with that ID' })
-          : User.deleteMany({ _id: { $in: thought.users } })
-      )
-      .then(() => res.json({ message: 'Thought and User deleted!' }))
+    Thought.findOneAndDelete({ _id: req.params.thoughtId })
+      .then((tDB) => {
+        if (!tDB) {
+          res.status(404).json({ message: 'this thought does not exist' });
+          return;
+        }
+        res.json(tDB);
+      })
       .catch((err) => res.status(500).json(err));
   },
   // Update a thought
@@ -45,12 +46,18 @@ module.exports = {
       { $set: req.body },
       { runValidators: true, new: true }
     )
-      .then((thought) =>
-        !Thought
-          ? res.status(404).json({ message: 'No thought with this id!' })
-          : res.json(thought)
-      )
-      .catch((err) => res.status(500).json(err));
+      .select('-__v')
+      .then((tDB) => {
+        if (!tDB) {
+          res.status(404).json({ message: 'No thought found to update' });
+          return;
+        }
+        res.json(tDB);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json(err);
+      });
   },
 
   addReaction(req, res) {
